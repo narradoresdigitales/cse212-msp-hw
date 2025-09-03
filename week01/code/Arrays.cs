@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 public static class Arrays
 {
     /// <summary>
@@ -12,6 +14,8 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // ** // 
 
         // Create an array to hold the multiples
         double[] results = new double[length];
@@ -38,5 +42,78 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // ** PLAN/PROCESS 
+        // 1) Restate the goal: 
+        //    - Move every element to the right by 'amount' positions; elements that fall off the end wrap to the   front.
+        //
+        // 2) Inputs / outputs:
+        //    - Input: List<int> data (mutated in-place), int amount (1..data.Count inclusive per spec).
+        //    - Output: same list instance, rotated.
+        //
+        // 3) Edge cases / guards:
+        //    - If data == null -> throw ArgumentNullException (fail early).
+        //    - If data.Count <= 1 -> nothing to do (return).
+        //    - If amount is 0 or a multiple of data.Count -> nothing to do.
+        //    - If amount > data.Count -> normalize using modulo.
+        //
+        // 4) Strategy choices (candidate approaches):
+        //    A) Simple slice + rebuild:
+        //         partA = data.GetRange(n - k, k)
+        //         partB = data.GetRange(0, n - k)
+        //         data.Clear(); data.AddRange(partA); data.AddRange(partB);
+        //       - Simple and easy to read; creates two new lists (extra allocations ~ O(n)).
+        //
+        //    B) Slice tail + remove + insert (chosen here):
+        //         tail = data.GetRange(n - k, k)      // O(k) extra
+        //         data.RemoveRange(n - k, k)         // remove tail from end
+        //         data.InsertRange(0, tail)          // insert tail at front
+        //       - Uses only one temporary list (O(k) extra), keeps intent clear, still O(n) time.
+        //
+        //    C) Build a new list by computing new indices with modulo:
+        //       - Create newList of size n and map each value to new List index using (i + k) % n, then copy back.
+        //       - Clear and AddRange the built list or replace in-place.
+        //
+        //    D) In-place three-reverse method:
+        //       - Reverse whole, reverse first k, reverse remainder. O(1) extra space.
+        //       - Slightly more algorithmic; nice to know but hint suggests slicing/modulo.
+        //
+        // 5) Choice justification:
+        //    - Use approach B (GetRange tail + RemoveRange + InsertRange). It matches the instructor's hint
+        //      about GetRange/RemoveRange/InsertRange and keeps extra allocations minimal while staying readable.
+        //
+        // 6) Complexity:
+        //    - Time: O(n) — RemoveRange/InsertRange and GetRange each take O(n) in the worst case of shifting,
+        //      but overall each element moves a small constant number of times.
+        //    - Space: O(k) extra for the temporary tail list (k = amount % n), worst-case O(n) if k == n.
+        //
+
+        //
+        // Now implement following the plan above.
+
+        // Guard clauses
+        if (data == null) throw new ArgumentNullException(nameof(data));
+        int n = data.Count;
+        if (n <= 1) return;
+
+        if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount));
+
+        int k = amount % n;
+        if (k == 0) return;
+
+        // 1) copy the last k elements (the tail)
+        List<int> tail = data.GetRange(n - k, k);
+
+        // 2) remove those k elements from the end
+        data.RemoveRange(n - k, k);
+
+        // 3) insert the tail at the front (index 0)
+        data.InsertRange(0, tail);
+
+
     }
+    
+
+
+
 }
