@@ -57,18 +57,18 @@ public static class Arrays
         //    - If amount is 0 or a multiple of data.Count -> nothing to do.
         //    - If amount > data.Count -> normalize using modulo.
         //
-        // 4) Strategy choices (candidate approaches):
+        // 4) Strategy:
         //    A) Simple slice + rebuild:
         //         partA = data.GetRange(n - k, k)
         //         partB = data.GetRange(0, n - k)
         //         data.Clear(); data.AddRange(partA); data.AddRange(partB);
-        //       - Simple and easy to read; creates two new lists (extra allocations ~ O(n)).
+        //       - Simple and easy to read; creates two new lists 
         //
         //    B) Slice tail + remove + insert (chosen here):
-        //         tail = data.GetRange(n - k, k)      // O(k) extra
+        //         tail = data.GetRange(n - k, k)      
         //         data.RemoveRange(n - k, k)         // remove tail from end
         //         data.InsertRange(0, tail)          // insert tail at front
-        //       - Uses only one temporary list (O(k) extra), keeps intent clear, still O(n) time.
+        //       time.
         //
         //    C) Build a new list by computing new indices with modulo:
         //       - Create newList of size n and map each value to new List index using (i + k) % n, then copy back.
@@ -82,11 +82,9 @@ public static class Arrays
         //    - Use approach B (GetRange tail + RemoveRange + InsertRange). It matches the instructor's hint
         //      about GetRange/RemoveRange/InsertRange and keeps extra allocations minimal while staying readable.
         //
-    
 
-        //
-        // Now implement following the plan above.
-
+        // *** IMPLEMENTATION *** // 
+        
         // Guard clauses
         if (data == null) throw new ArgumentNullException(nameof(data));
         int n = data.Count;
