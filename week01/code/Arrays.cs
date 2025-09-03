@@ -82,11 +82,7 @@ public static class Arrays
         //    - Use approach B (GetRange tail + RemoveRange + InsertRange). It matches the instructor's hint
         //      about GetRange/RemoveRange/InsertRange and keeps extra allocations minimal while staying readable.
         //
-        // 6) Complexity:
-        //    - Time: O(n) — RemoveRange/InsertRange and GetRange each take O(n) in the worst case of shifting,
-        //      but overall each element moves a small constant number of times.
-        //    - Space: O(k) extra for the temporary tail list (k = amount % n), worst-case O(n) if k == n.
-        //
+    
 
         //
         // Now implement following the plan above.
