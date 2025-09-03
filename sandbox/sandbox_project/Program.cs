@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 public class Program
 {
@@ -9,5 +10,20 @@ public class Program
         // one of your projects.
 
         Console.WriteLine("Hello Sandbox World!");
+
+
+        int[] numbers = { 1, 2, 3, 4, 5 };
+
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            numbers[i] = numbers[i] * 2;
+        }
+
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            Console.WriteLine(numbers[i]);
+            Console.WriteLine(string.Join("/ ", numbers));
+        }
+
     }
 }
