@@ -25,8 +25,8 @@ public static class Arrays
         {
             results[i] = number * (i + 1);
         }
-
-        return results; // replace this return statement with your own
+        // Display the array with multiples
+        return results; 
     }
 
     /// <summary>
