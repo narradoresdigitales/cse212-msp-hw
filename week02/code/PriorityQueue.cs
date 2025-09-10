@@ -28,7 +28,7 @@ public class PriorityQueue
                 
         for (int i = 1; i < _queue.Count; i++)
         {
-            if (_queue[i].Priority >= _queue[highPriorityIndex].Priority)
+            if (_queue[i].Priority > _queue[highPriorityIndex].Priority)
                 highPriorityIndex = i;
         }
 
