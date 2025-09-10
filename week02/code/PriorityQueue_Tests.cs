@@ -4,9 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: Enqueue items with different priorities
-    // Expected Result: Dequeue returns items in descending priority order
-    // Defect(s) Found: Original code did not remove items and had incorrect priority comparison
+    // Scenario: Add multiple items with different priorities and dequeue once.
+    // Expected Result: The item with the highest priority should be returned ("A").
+    // Defect(s) Found: 
+    // - Original Dequeue loop skipped the last element because it used `Count - 1`.
+    // - Removal logic did not actually remove the item, so the same item could appear again.
+    // Fix: Changed loop condition to `i < _queue.Count` and used RemoveAt(highPriorityIndex).
     public void TestPriorityQueue_1()
     {
         var pq = new PriorityQueue();
