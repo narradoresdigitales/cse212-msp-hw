@@ -6,9 +6,13 @@ public class Translator
         englishToGerman.AddWord("House", "Haus");
         englishToGerman.AddWord("Car", "Auto");
         englishToGerman.AddWord("Plane", "Flugzeug");
+        englishToGerman.AddWord("Good Morning", "Guten Morgen");
         Console.WriteLine(englishToGerman.Translate("Car")); // Auto
         Console.WriteLine(englishToGerman.Translate("Plane")); // Flugzeug
         Console.WriteLine(englishToGerman.Translate("Train")); // ???
+        Console.WriteLine(englishToGerman.Translate("Good Morning"));  // Guten Morgen
+        Console.WriteLine(englishToGerman.Translate("Good Night"));    // ???
+
     }
 
     private Dictionary<string, string> _words = new();
@@ -25,7 +29,14 @@ public class Translator
     public void AddWord(string fromWord, string toWord)
     {
         // ADD YOUR CODE HERE
+        _words[fromWord] = toWord; 
     }
+
+
+
+
+
+
 
     /// <summary>
     /// Translates the from word into the word that this stores as the translation
@@ -35,6 +46,11 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+
+        if (_words.ContainsKey(fromWord))
+        {
+            return _words[fromWord]; 
+        }
+        return "???";
     }
 }
