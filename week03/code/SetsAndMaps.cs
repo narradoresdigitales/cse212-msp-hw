@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -62,6 +63,20 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+
+            // degree should have 4 columns
+            if (fields.Length >= 4)
+            {
+                var degree = fields[3].Trim();
+
+                if (!string.IsNullOrEmpty(degree))
+                {
+                    if (degrees.ContainsKey(degree))
+                    degrees[degree]++;
+                    else
+                    degrees[degree] = 1;
+                }                
+            }
         }
 
         return degrees;
