@@ -104,6 +104,11 @@ public static class Recursion
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
     {
+
+        // Initialize memoization dictionary if null
+        if (remember == null)        
+            remember = new Dictionary<int, decimal>();
+        
         // Base Cases
         if (s == 0)
             return 0;
@@ -116,8 +121,14 @@ public static class Recursion
 
         // TODO Start Problem 3
 
+
+        if (remember.ContainsKey(s))
+            return remember[s];
+
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+        remember[s] = ways;
+
         return ways;
     }
 
@@ -137,6 +148,27 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+
+        // Base case: no wildcards left
+        if (!pattern.Contains('*'))
+        {
+            results.Add(pattern);
+            return;
+        }
+
+        // Find wildcard
+        int index = pattern.IndexOf('*');
+
+        //Replace with '0' and recurse
+        string withZero = pattern.Substring(0, index) + "0" + pattern[(index + 1)..];
+        WildcardBinary(withZero, results);
+
+        // Replace with '1' and recurse
+        string withOne = pattern.Substring(0, index) + 1 + pattern[(index + 1)..];
+        WildcardBinary(withOne, results);
+
+
+            
     }
 
     /// <summary>
