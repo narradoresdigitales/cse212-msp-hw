@@ -149,7 +149,7 @@ public class LinkedList : IEnumerable<int>
             // Case 3: Tail
                 else if (curr == _tail)
                 {
-                    RemoveTail();
+                RemoveTail();
                 }
             // Case 4: Middle
             else
