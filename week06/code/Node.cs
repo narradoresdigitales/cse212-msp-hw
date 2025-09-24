@@ -1,45 +1,57 @@
-public class Node
-{
-    public int Data { get; set; }
-    public Node? Right { get; private set; }
-    public Node? Left { get; private set; }
 
-    public Node(int data)
+    
+    public class Node
     {
-        this.Data = data;
-    }
+        public int Data { get; set; }
+        public Node? Right { get; private set; }
+        public Node? Left { get; private set; }
 
-    public void Insert(int value)
-    {
-        // TODO Start Problem 1
-
-        if (value < Data)
+        public Node(int data)
         {
-            // Insert to the left
-            if (Left is null)
-                Left = new Node(value);
-            else
-                Left.Insert(value);
+            this.Data = data;
         }
-        else
-        {
-            // Insert to the right
-            if (Right is null)
-                Right = new Node(value);
-            else
-                Right.Insert(value);
-        }
-    }
 
-    public bool Contains(int value)
-    {
+        public void Insert(int value)
+        {
+            // TODO Start Problem 1
+            if (value == Data) return;
+            if (value < Data) 
+            {
+                // Insert to the left
+                if (Left is null)
+                    Left = new Node(value);
+                else
+                    Left.Insert(value);
+            }
+            else
+            {
+                // Insert to the right
+                if (Right is null)
+                    Right = new Node(value);
+                else
+                    Right.Insert(value);
+            }
+        }
+
+        public bool Contains(int value)
+        {
         // TODO Start Problem 2
-        return false;
-    }
+        if (value == Data)
+            return true;
+        else if (value < Data)
+            return Left != null && Left.Contains(value);
+        else
+            return Right != null && Right.Contains(value);
+        }
 
-    public int GetHeight()
-    {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        public int GetHeight()
+        {
+            // TODO Start Problem 4
+              // Recursively get height of left and right subtrees
+            int leftHeight = Left?.GetHeight() ?? 0;
+            int rightHeight = Right?.GetHeight() ?? 0;
+
+            // Height of this node is 1 + max of left and right subtree heights
+            return 1 + Math.Max(leftHeight, rightHeight);
+        }
     }
-}
